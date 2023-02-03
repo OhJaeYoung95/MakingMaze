@@ -1,7 +1,6 @@
-﻿using Maze;
-using System;
+﻿using System;
 
-namespace Algorithm
+namespace Maze
 {
     class Program
     {
@@ -9,7 +8,9 @@ namespace Algorithm
         static void Main(string[] args)
         {
             Board board = new Board();
-            board.Initailize(25);
+            Player player = new Player();
+            board.Initailize(25, player);
+            player.Initialize(1,1, board.Size - 2, board.Size - 2, board);
 
             Console.CursorVisible = false;
 
@@ -23,12 +24,14 @@ namespace Algorithm
                 // 만약에 경과한 시간이 1/30초보다 작다면
                 if (currentTick - lastTick < WAIT_TICK)
                     continue;
+                int deltaTick = currentTick - lastTick;
                 lastTick = currentTick;
                 #endregion
 
                 // 입력
 
                 // 로직
+                player.Update(deltaTick);
 
                 // 랜더링
                 Console.SetCursorPosition(0, 0);
